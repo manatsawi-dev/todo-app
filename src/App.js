@@ -1,4 +1,4 @@
-import TodoScreen from "./screens";
+import TodoScreen from "./screens/todo";
 
 function App() {
   return <TodoScreen />;
