@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { FormAddWrapper } from "./styled-component";
+import { FormAddWrapper, TodoEditInput } from "./styled-component";
 import Form from "../../../components/form";
 import Input from "../../../components/input";
 import Button from "../../../components/button";
 
-const FormAdd = (props) => {
+export const FormAdd = (props) => {
   const { onSubmit } = props;
   const [newTodoState, setNewTodoState] = useState("");
 
@@ -37,4 +37,34 @@ FormAdd.defaultProps = {
   onSubmit: () => {},
 };
 
-export default FormAdd;
+export const FormEdit = React.forwardRef((props, ref) => {
+  const { onSubmit, defaultValue } = props;
+  const [updateTodoState, setUpdateTodoState] = useState(defaultValue);
+
+  const handlerOnSubmit = (value) => {
+    onSubmit(value["edit-todo"] || "");
+    setUpdateTodoState("");
+  };
+
+  return (
+    <Form onSubmit={handlerOnSubmit} fluid>
+      <TodoEditInput
+        ref={ref}
+        name="edit-todo"
+        placeholder="Enter some plan"
+        value={updateTodoState}
+        onChange={(e) => setUpdateTodoState(e.target.value)}
+      />
+    </Form>
+  );
+});
+
+FormEdit.propTypes = {
+  onSubmit: PropTypes.func,
+  defaultValue: PropTypes.string,
+};
+
+FormEdit.defaultProps = {
+  onSubmit: () => {},
+  defaultValue: "",
+};

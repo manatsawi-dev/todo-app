@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, ContentWrapper } from "./views/styled-component";
 import Header from "../../components/header";
-import FormAdd from "./views/todo-form";
+import { FormAdd } from "./views/todo-form";
 import TodoList from "./views/todo-list";
 
 const TodoScreen = () => {

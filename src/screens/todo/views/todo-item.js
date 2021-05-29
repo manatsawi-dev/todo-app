@@ -1,12 +1,9 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Text from "../../../components/text";
-import {
-  TodoItemWrapper,
-  TodoItemAction,
-  TodoEditInput,
-} from "./styled-component";
+import { TodoItemWrapper, TodoItemAction } from "./styled-component";
 import Button from "../../../components/button";
+import { FormEdit } from "./todo-form";
 
 const TodoItem = (props) => {
   const { editMode, children, onClickDelete, onClickEdit, onClickUpdate } =
@@ -17,7 +14,11 @@ const TodoItem = (props) => {
     <TodoItemWrapper>
       {!editMode && <Text>{children}</Text>}
       {editMode && (
-        <TodoEditInput ref={nodeEditInputRef} defaultValue={children} />
+        <FormEdit
+          ref={nodeEditInputRef}
+          defaultValue={children}
+          onSubmit={() => onClickUpdate(nodeEditInputRef.current.value)}
+        />
       )}
       <TodoItemAction>
         {!editMode && (
