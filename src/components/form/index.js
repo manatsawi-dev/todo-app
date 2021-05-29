@@ -4,8 +4,22 @@ import { FormWrapper } from "./styled-component";
 
 const Form = (props) => {
   const { formId, children, onSubmit } = props;
+
+  const handlerOnSubmit = (e) => {
+    e.preventDefault();
+    const formInput = Object.values(e.target);
+    const formValue = {};
+    formInput.forEach((element) => {
+      if (element.localName === "input") {
+        formValue[element.name] = element.value;
+      }
+    });
+
+    onSubmit(formValue);
+  };
+
   return (
-    <FormWrapper id={formId} onSubmit={onSubmit}>
+    <FormWrapper id={formId} onSubmit={handlerOnSubmit}>
       {children}
     </FormWrapper>
   );
