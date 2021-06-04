@@ -48,7 +48,9 @@ const TodoScreen = () => {
 
   const onEventDeleteTodo = (id) => {
     deleteEditList(id);
-    setTodoListState((prev) => prev.filter((element) => element.id !== id));
+    setTodoListState((prev) =>
+      prev.slice(0).filter((element) => element.id !== id)
+    );
   };
 
   const deleteEditList = (id) => {
