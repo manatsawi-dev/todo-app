@@ -9,8 +9,8 @@ export const FormAdd = (props) => {
   const { onSubmit } = props;
   const [newTodoState, setNewTodoState] = useState("");
 
-  const handlerOnSubmit = (value) => {
-    onSubmit(value?.todo || "");
+  const handlerOnSubmit = () => {
+    onSubmit(newTodoState);
     setNewTodoState("");
   };
 
@@ -41,8 +41,8 @@ export const FormEdit = React.forwardRef((props, ref) => {
   const { onSubmit, defaultValue } = props;
   const [updateTodoState, setUpdateTodoState] = useState(defaultValue);
 
-  const handlerOnSubmit = (value) => {
-    onSubmit(value["edit-todo"] || "");
+  const handlerOnSubmit = () => {
+    onSubmit(updateTodoState);
     setUpdateTodoState("");
   };
 
