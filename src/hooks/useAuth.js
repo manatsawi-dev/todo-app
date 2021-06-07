@@ -16,7 +16,7 @@ export const useAuth = () => {
       setIsCheckedAuth(true);
     };
     getToken();
-  }, []);
+  }, [authState]);
 
   const dispatchAuthLogin = (reqBody) => {
     dispatch(authActions.authLogin(reqBody));
