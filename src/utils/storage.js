@@ -8,3 +8,7 @@ export const getAuthToken = async () => {
   const token = localStorage.getItem(KEY_AUTH);
   return token;
 };
+
+export const clearStorage = () => {
+  localStorage.clear();
+};
