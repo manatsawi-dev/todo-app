@@ -20,10 +20,13 @@ export const useAuth = () => {
   const authLogin = async (reqBody) => {
     try {
       const response = await services.authLogin(reqBody);
-      if (response) {
+      if (response?.success) {
         await storages.saveAuthToken(response.token);
         navigationServices.windowNavigateTo({ pathname: ROUTES.ROUTE_HOME });
         alert("Login success");
+      }
+      if (response?.error) {
+        throw new Error(response.error);
       }
     } catch (error) {
       alert("failed login: " + error);
@@ -33,10 +36,13 @@ export const useAuth = () => {
   const authRegister = async (reqBody) => {
     try {
       const response = await services.authRegister(reqBody);
-      if (response) {
+      if (response?.success) {
         await storages.saveAuthToken(response.token);
         navigationServices.windowNavigateTo({ pathname: ROUTES.ROUTE_HOME });
         alert("Register success");
+      }
+      if (response?.error) {
+        throw new Error(response.error);
       }
     } catch (error) {
       alert("failed register: " + error);
