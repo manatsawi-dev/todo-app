@@ -9,7 +9,7 @@ const TodoScreen = () => {
   const {
     todoState,
     dispatchAddTodoNoAuth,
-    updateTodoNoAuth,
+    dispatchUpdateTodoNoAuth,
     deleteTodoNoAuth,
   } = useTodoNoAuth();
   const [editListState, setEditListState] = useState({});
@@ -28,16 +28,12 @@ const TodoScreen = () => {
     });
   };
 
-  const onEventUpdateTodo = async (id, newValue) => {
-    const updateData = await updateTodoNoAuth({
+  const onEventUpdateTodo = (id, newValue) => {
+    dispatchUpdateTodoNoAuth({
       id,
       item: newValue,
       currentData: todoListState,
     });
-    if (!updateData) {
-      return;
-    }
-    setTodoListState(updateData);
     if (!editListState[id]) {
       return;
     }
