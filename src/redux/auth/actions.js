@@ -51,7 +51,6 @@ export const authLogout = () => async (dispatch) => {
   try {
     const token = await storages.getAuthToken();
     const response = await API.authLogout(token);
-    console.log(response);
     if (response?.success) {
       dispatch({ type: TYPES.AUTH_LOGOUT_SUCCESS });
       storages.clearStorage();
