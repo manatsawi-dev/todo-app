@@ -13,12 +13,16 @@ export const fetchTodoList = async () => {
   }
 };
 
-export const addTodoList = async (reqBody) => {
+export const addTodoList = async ({ reqBody, token }) => {
+  const headers = token ? configs.headerAuth(token) : configs.header;
   try {
     const API_URL = `${configs.HOST_URL}no_auth/todos/`;
     const response = await fetch(API_URL, {
       method: "POST",
-      ...configs.header,
+      headers: {
+        ...headers,
+        ...configs.fixedHeader,
+      },
       body: JSON.stringify(reqBody),
     });
     if (response.ok) {
@@ -29,12 +33,16 @@ export const addTodoList = async (reqBody) => {
   }
 };
 
-export const updateTodoList = async ({ id, reqBody }) => {
+export const updateTodoList = async ({ id, reqBody, token }) => {
+  const headers = token ? configs.headerAuth(token) : configs.header;
   try {
     const API_URL = `${configs.HOST_URL}no_auth/todos/${id}`;
     const response = await fetch(API_URL, {
       method: "PUT",
-      ...configs.header,
+      headers: {
+        ...headers,
+        ...configs.fixedHeader,
+      },
       body: JSON.stringify(reqBody),
     });
     return response.json();
@@ -43,12 +51,16 @@ export const updateTodoList = async ({ id, reqBody }) => {
   }
 };
 
-export const deleteTodoList = async (id) => {
+export const deleteTodoList = async ({ id, token }) => {
+  const headers = token ? configs.headerAuth(token) : configs.header;
   try {
     const API_URL = `${configs.HOST_URL}no_auth/todos/${id}`;
     const response = await fetch(API_URL, {
       method: "DELETE",
-      ...configs.header,
+      headers: {
+        ...headers,
+        ...configs.fixedHeader,
+      },
     });
     return response.json();
   } catch (error) {

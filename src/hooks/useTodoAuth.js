@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-
 import * as services from "../services/todo";
 import * as coreTodo from "../utils/core-todo";
+import * as storages from "../utils/storage";
 
-export const useTodoNoAuth = () => {
+export const useTodoAuth = () => {
   const [todoState, setTodoState] = useState([]);
 
   useEffect(() => {
     const fetchTodo = async () => {
-      const data = await fetchTodoNoAuth();
+      const data = await fetchTodoAuth();
       setTodoState(data);
     };
     fetchTodo();
@@ -19,7 +19,7 @@ export const useTodoNoAuth = () => {
     return validatePattern.test(value);
   };
 
-  const fetchTodoNoAuth = async () => {
+  const fetchTodoAuth = async () => {
     try {
       const response = await services.fetchTodoList();
       return coreTodo.mapDataToState(response?.data);
@@ -28,16 +28,20 @@ export const useTodoNoAuth = () => {
     }
   };
 
-  const addTodoNoAuth = async ({ item, currentData }) => {
+  const addTodoAuth = async ({ item, currentData }) => {
     if (!isValidateValue(item)) {
       alert("input invalid");
       return;
     }
     try {
+      const token = (await storages.getAuthToken()) || "dummyToken";
+      if (!token) {
+        throw new Error("Invalid token");
+      }
       const reqBody = {
         title: item,
       };
-      const response = await services.addTodoList({ reqBody });
+      const response = await services.addTodoList({ reqBody, token });
       const newData = coreTodo.addNewDataToState({
         oldData: currentData,
         newData: response.data,
@@ -48,16 +52,20 @@ export const useTodoNoAuth = () => {
     }
   };
 
-  const updateTodoNoAuth = async ({ id, item, currentData }) => {
+  const updateTodoAuth = async ({ id, item, currentData }) => {
     if (!isValidateValue(item)) {
       alert("input invalid");
       return;
     }
     try {
+      const token = (await storages.getAuthToken()) || "dummyToken";
+      if (!token) {
+        throw new Error("Invalid token");
+      }
       const reqBody = {
         title: item,
       };
-      const response = await services.updateTodoList({ id, reqBody });
+      const response = await services.updateTodoList({ id, reqBody, token });
       const updateData = coreTodo.updateNewDataToState({
         oldData: currentData,
         newData: response.data,
@@ -68,8 +76,12 @@ export const useTodoNoAuth = () => {
     }
   };
 
-  const deleteTodoNoAuth = async ({ id, currentData }) => {
+  const deleteTodoAuth = async ({ id, currentData }) => {
     try {
+      const token = (await storages.getAuthToken()) || "dummyToken";
+      if (!token) {
+        throw new Error("Invalid token");
+      }
       await services.deleteTodoList({ id });
       const newData = coreTodo.deleteDataFromState({
         data: currentData,
@@ -83,8 +95,8 @@ export const useTodoNoAuth = () => {
 
   return {
     todoState,
-    addTodoNoAuth,
-    updateTodoNoAuth,
-    deleteTodoNoAuth,
+    addTodoAuth,
+    updateTodoAuth,
+    deleteTodoAuth,
   };
 };

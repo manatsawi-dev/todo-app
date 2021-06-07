@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useTodoNoAuth } from "../../hooks/useTodo";
+import { useTodoAuth } from "../../hooks/useTodoAuth";
 import { Container, ContentWrapper } from "./views/styled-component";
 import Header from "../../components/header";
 import { FormAdd } from "./views/todo-form";
 import TodoList from "./views/todo-list";
 
 const TodoScreen = () => {
-  const { todoState, addTodoNoAuth, updateTodoNoAuth, deleteTodoNoAuth } =
-    useTodoNoAuth();
+  const { todoState, addTodoAuth, updateTodoAuth, deleteTodoAuth } =
+    useTodoAuth();
   const [editListState, setEditListState] = useState({});
   const [todoListState, setTodoListState] = useState(todoState);
 
@@ -18,7 +18,7 @@ const TodoScreen = () => {
   }, [todoState]);
 
   const onEventAddTodo = async (value) => {
-    const newData = await addTodoNoAuth({
+    const newData = await addTodoAuth({
       item: value,
       currentData: todoListState,
     });
@@ -29,7 +29,7 @@ const TodoScreen = () => {
   };
 
   const onEventUpdateTodo = async (id, newValue) => {
-    const updateData = await updateTodoNoAuth({
+    const updateData = await updateTodoAuth({
       id,
       item: newValue,
       currentData: todoListState,
@@ -45,7 +45,7 @@ const TodoScreen = () => {
   };
 
   const onEventDeleteTodo = async (id) => {
-    const newData = await deleteTodoNoAuth({ id, currentData: todoListState });
+    const newData = await deleteTodoAuth({ id, currentData: todoListState });
     if (!newData) {
       return;
     }
