@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTodoNoAuth } from "../../hooks/useTodo";
 import { Container, ContentWrapper } from "./views/styled-component";
 import Header from "../../components/header";
@@ -13,19 +13,11 @@ const TodoScreen = () => {
     deleteTodoNoAuth,
   } = useTodoNoAuth();
   const [editListState, setEditListState] = useState({});
-  const [todoListState, setTodoListState] = useState([]);
-
-  useEffect(() => {
-    console.log(todoState);
-    if (todoState) {
-      setTodoListState(todoState);
-    }
-  }, [todoState]);
 
   const onEventAddTodo = (value) => {
     dispatchAddTodoNoAuth({
       item: value,
-      currentData: todoListState,
+      currentData: todoState,
     });
   };
 
@@ -33,7 +25,7 @@ const TodoScreen = () => {
     dispatchUpdateTodoNoAuth({
       id,
       item: newValue,
-      currentData: [...todoListState],
+      currentData: todoState,
     });
     if (!editListState[id]) {
       return;
@@ -44,7 +36,7 @@ const TodoScreen = () => {
   const onEventDeleteTodo = async (id) => {
     deleteTodoNoAuth({
       id,
-      currentData: [...todoListState],
+      currentData: todoState,
     });
     deleteEditList(id);
   };
@@ -70,7 +62,7 @@ const TodoScreen = () => {
         <Header>What's the Plan for Today?</Header>
         <FormAdd onSubmit={onEventAddTodo} />
         <TodoList
-          data={todoListState}
+          data={todoState}
           editList={editListState}
           onClickDelete={onEventDeleteTodo}
           onClickEdit={onEventEditTodo}

@@ -1,6 +1,6 @@
 import * as TYPES from "./types";
 import * as API from "./api";
-// import * as storages from "../../utils/storage";
+import * as storages from "../../utils/storage";
 import * as logic from "./logic";
 
 export const todoFetchTodoList = () => async (dispatch) => {
@@ -27,7 +27,8 @@ export const todoAddTodo =
   async (dispatch) => {
     dispatch({ type: TYPES.TODO_ADD_TODO_REQ });
     try {
-      const response = await API.addTodoList({ reqBody });
+      const token = await storages.getAuthToken();
+      const response = await API.addTodoList({ reqBody, token });
       if (response.data) {
         const payload = logic.addNewDataToState({
           oldData: currentData,
@@ -51,7 +52,8 @@ export const todoUpdateTodo =
   async (dispatch) => {
     dispatch({ type: TYPES.TODO_UPDATE_TODO_REQ });
     try {
-      const response = await API.updateTodoList({ id, reqBody });
+      const token = await storages.getAuthToken();
+      const response = await API.updateTodoList({ id, reqBody, token });
       if (response.data) {
         const payload = logic.updateNewDataToState({
           oldData: currentData,
@@ -75,7 +77,8 @@ export const todoDeleteTodo =
   async (dispatch) => {
     dispatch({ type: TYPES.TODO_DELETE_TODO_REQ });
     try {
-      const response = await API.deleteTodoList({ id });
+      const token = await storages.getAuthToken();
+      const response = await API.deleteTodoList({ id, token });
       if (response.data) {
         const payload = logic.deleteDataFromState({
           data: currentData,
