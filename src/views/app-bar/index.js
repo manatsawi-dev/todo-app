@@ -15,8 +15,7 @@ const AppBar = () => {
       navigationServices.navigateTo({ pathname: ROUTES.ROUTE_LOGIN });
       return;
     }
-    await authLogout();
-    navigationServices.windowNavigateTo({ pathname: ROUTES.ROUTE_HOME });
+    authLogout();
   };
 
   const onClickedHome = () => {

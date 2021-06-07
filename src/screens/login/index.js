@@ -15,7 +15,7 @@ const LoginScreen = () => {
       email,
       password,
     };
-    await authLogin(reqBody);
+    authLogin(reqBody);
   };
 
   const onClickRegister = () => {
