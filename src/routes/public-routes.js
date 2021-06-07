@@ -9,7 +9,7 @@ import * as ROUTES from "./routes-name";
 const PublicRoutes = () => {
   return (
     <Switch>
-      <Route exact path={ROUTES.ROUTE_MAIN} component={TodoScreen} />
+      <Route exact path={ROUTES.ROUTE_HOME} component={TodoScreen} />
       <Route exact path={ROUTES.ROUTE_LOGIN} component={LoginScreen} />
       <Route exact path={ROUTES.ROUTE_REGISTER} component={RegisterScreen} />
     </Switch>

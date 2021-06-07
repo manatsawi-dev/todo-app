@@ -12,12 +12,6 @@ export const NavContainer = styled.nav`
   padding: 0 1rem;
 `;
 
-export const AppTitle = styled.p`
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
-`;
-
 export const Button = styled.button`
   background-color: transparent;
   border: none;
