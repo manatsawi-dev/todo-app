@@ -8,14 +8,14 @@ import * as navigationServices from "../../utils/navigation-services";
 import * as ROUTES from "../../routes/routes-name";
 
 const LoginScreen = () => {
-  const { authLogin } = useAuth();
+  const { dispatchAuthLogin } = useAuth();
 
   const onSubmit = async (email, password) => {
     const reqBody = {
       email,
       password,
     };
-    authLogin(reqBody);
+    dispatchAuthLogin(reqBody);
   };
 
   const onClickRegister = () => {

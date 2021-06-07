@@ -8,7 +8,7 @@ import * as navigationServices from "../../utils/navigation-services";
 import * as ROUTES from "../../routes/routes-name";
 
 const RegisterScreen = () => {
-  const { authRegister } = useAuth();
+  const { dispatchAuthRegister } = useAuth();
 
   const onSubmit = async (name, email, password) => {
     const reqBody = {
@@ -16,7 +16,7 @@ const RegisterScreen = () => {
       email,
       password,
     };
-    authRegister(reqBody);
+    dispatchAuthRegister(reqBody);
   };
 
   const onClickLogin = () => {

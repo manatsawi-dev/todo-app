@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as authActions from "../redux/auth/actions";
 import * as storages from "../utils/storage";
 
@@ -7,6 +7,7 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const [isCheckedAuth, setIsCheckedAuth] = useState(false);
   const [token, setToken] = useState("");
+  const authState = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const getToken = async () => {
@@ -17,23 +18,24 @@ export const useAuth = () => {
     getToken();
   }, []);
 
-  const authLogin = (reqBody) => {
+  const dispatchAuthLogin = (reqBody) => {
     dispatch(authActions.authLogin(reqBody));
   };
 
-  const authRegister = (reqBody) => {
+  const dispatchAuthRegister = (reqBody) => {
     dispatch(authActions.authRegister(reqBody));
   };
 
-  const authLogout = () => {
+  const dispatchAuthLogout = () => {
     dispatch(authActions.authLogout());
   };
 
   return {
     token,
     isCheckedAuth,
-    authLogout,
-    authLogin,
-    authRegister,
+    authState,
+    dispatchAuthLogout,
+    dispatchAuthLogin,
+    dispatchAuthRegister,
   };
 };
