@@ -22,4 +22,5 @@ export const ButtonWrapper = styled.button`
     `
     border-radius: 4px;
   `};
+  ${(props) => props.borderRadiusAll && "border-radius: 4px;"}
 `;

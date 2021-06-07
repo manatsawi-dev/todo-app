@@ -9,4 +9,5 @@ export const InputWrapper = styled.input`
   @media (min-width: 767px) {
     width: 500px;
   }
+  ${(props) => props.borderRadiusAll && "border-radius: 4px"};
 `;
