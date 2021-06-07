@@ -21,7 +21,6 @@ export const addTodoList = async ({ reqBody, token }) => {
       method: "POST",
       headers: {
         ...headers,
-        ...configs.fixedHeader,
       },
       body: JSON.stringify(reqBody),
     });
@@ -41,7 +40,6 @@ export const updateTodoList = async ({ id, reqBody, token }) => {
       method: "PUT",
       headers: {
         ...headers,
-        ...configs.fixedHeader,
       },
       body: JSON.stringify(reqBody),
     });
@@ -59,7 +57,6 @@ export const deleteTodoList = async ({ id, token }) => {
       method: "DELETE",
       headers: {
         ...headers,
-        ...configs.fixedHeader,
       },
     });
     return response.json();
