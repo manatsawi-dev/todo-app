@@ -20,12 +20,26 @@ export const useAuth = () => {
   const authLogin = async (reqBody) => {
     try {
       const response = await services.authLogin(reqBody);
-      if (response.success) {
+      if (response) {
         await storages.saveAuthToken(response.token);
-        navigationServices.navigateReplaceTo({ pathname: ROUTES.ROUTE_HOME });
+        navigationServices.windowNavigateTo({ pathname: ROUTES.ROUTE_HOME });
+        alert("Login success");
       }
     } catch (error) {
       alert("failed login: " + error);
+    }
+  };
+
+  const authRegister = async (reqBody) => {
+    try {
+      const response = await services.authRegister(reqBody);
+      if (response) {
+        await storages.saveAuthToken(response.token);
+        navigationServices.windowNavigateTo({ pathname: ROUTES.ROUTE_HOME });
+        alert("Register success");
+      }
+    } catch (error) {
+      alert("failed register: " + error);
     }
   };
 
@@ -43,5 +57,6 @@ export const useAuth = () => {
     isCheckedAuth,
     authLogout,
     authLogin,
+    authRegister,
   };
 };
