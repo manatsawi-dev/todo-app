@@ -6,8 +6,12 @@ import { FormAdd } from "./views/todo-form";
 import TodoList from "./views/todo-list";
 
 const TodoScreen = () => {
-  const { todoState, addTodoNoAuth, updateTodoNoAuth, deleteTodoNoAuth } =
-    useTodoNoAuth();
+  const {
+    todoState,
+    dispatchAddTodoNoAuth,
+    updateTodoNoAuth,
+    deleteTodoNoAuth,
+  } = useTodoNoAuth();
   const [editListState, setEditListState] = useState({});
   const [todoListState, setTodoListState] = useState(todoState);
 
@@ -17,15 +21,11 @@ const TodoScreen = () => {
     }
   }, [todoState]);
 
-  const onEventAddTodo = async (value) => {
-    const newData = await addTodoNoAuth({
+  const onEventAddTodo = (value) => {
+    dispatchAddTodoNoAuth({
       item: value,
       currentData: todoListState,
     });
-    if (!newData) {
-      return;
-    }
-    setTodoListState(newData);
   };
 
   const onEventUpdateTodo = async (id, newValue) => {

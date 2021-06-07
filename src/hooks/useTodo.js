@@ -1,51 +1,31 @@
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as todoActions from "../redux/todo/actions";
 import * as services from "../services/todo";
 import * as coreTodo from "../utils/core-todo";
 
 export const useTodoNoAuth = () => {
-  const [todoState, setTodoState] = useState([]);
+  const dispatch = useDispatch();
+  const todoState = useSelector((state) => state.todo.todoList);
 
   useEffect(() => {
-    const fetchTodo = async () => {
-      const data = await fetchTodoNoAuth();
-      setTodoState(data);
-    };
-    fetchTodo();
-  }, []);
+    dispatch(todoActions.todoFetchTodoList());
+  }, [dispatch]);
 
   const isValidateValue = (value) => {
     const validatePattern = /^[a-zA-Z ก-๛ 0-9]+$/;
     return validatePattern.test(value);
   };
 
-  const fetchTodoNoAuth = async () => {
-    try {
-      const response = await services.fetchTodoList();
-      return coreTodo.mapDataToState(response?.data);
-    } catch (error) {
-      alert("failed get todo list: " + error);
-    }
-  };
-
-  const addTodoNoAuth = async ({ item, currentData }) => {
+  const dispatchAddTodoNoAuth = ({ item, currentData }) => {
     if (!isValidateValue(item)) {
       alert("input invalid");
       return;
     }
-    try {
-      const reqBody = {
-        title: item,
-      };
-      const response = await services.addTodoList({ reqBody });
-      const newData = coreTodo.addNewDataToState({
-        oldData: currentData,
-        newData: response.data,
-      });
-      return newData;
-    } catch (error) {
-      alert("failed add todo: " + error);
-    }
+    const reqBody = {
+      title: item,
+    };
+    dispatch(todoActions.todoAddTodo({ reqBody, currentData }));
   };
 
   const updateTodoNoAuth = async ({ id, item, currentData }) => {
@@ -83,7 +63,7 @@ export const useTodoNoAuth = () => {
 
   return {
     todoState,
-    addTodoNoAuth,
+    dispatchAddTodoNoAuth,
     updateTodoNoAuth,
     deleteTodoNoAuth,
   };
