@@ -13,8 +13,6 @@ const FormLogin = (props) => {
   const handlerOnSubmit = () => {
     if (email && password) {
       onSubmit(email, password);
-      setEmail("");
-      setPassword("");
     }
   };
 
