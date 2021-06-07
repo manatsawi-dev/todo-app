@@ -7,15 +7,16 @@ import * as ROUTES from "../../routes/routes-name";
 
 const AppBar = () => {
   const location = useLocation();
-  const { isCheckedAuth, authState, token, dispatchAuthLogin } = useAuth();
+  const { isCheckedAuth, authState, token, dispatchAuthLogout } = useAuth();
   const labelRight = isCheckedAuth && !authState && !token ? "Login" : "Logout";
 
   const onClicked = async () => {
-    if (isCheckedAuth && !token) {
+    const isLoggedOut = isCheckedAuth && !authState && !token;
+    if (isLoggedOut) {
       navigationServices.navigateTo({ pathname: ROUTES.ROUTE_LOGIN });
       return;
     }
-    dispatchAuthLogin();
+    dispatchAuthLogout();
   };
 
   const onClickedHome = () => {

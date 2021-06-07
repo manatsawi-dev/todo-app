@@ -31,6 +31,12 @@ export const authReducer = (state = initAuth, { type, payload = {} }) => {
       };
     case TYPES.AUTH_REGISTER_FAIL:
       return { ...state, loading: false, error: payload };
+    case TYPES.AUTH_LOGOUT_REQ:
+      return { ...state, loading: true, error: null };
+    case TYPES.AUTH_LOGOUT_SUCCESS:
+      return { ...initAuth };
+    case TYPES.AUTH_LOGOUT_FAIL:
+      return { ...state, loading: false, error: payload };
     default:
       return state;
   }

@@ -24,6 +24,18 @@ export const todoListReducer = (
       return { ...state, loadingUpdate: false, todoList: payload };
     case TYPES.TODO_ADD_TODO_FAIL:
       return { ...state, loadingUpdate: false, error: payload };
+    case TYPES.TODO_UPDATE_TODO_REQ:
+      return { ...state, loadingUpdate: true, error: null };
+    case TYPES.TODO_UPDATE_TODO_SUCCESS:
+      return { ...state, loadingUpdate: false, todoList: payload };
+    case TYPES.TODO_UPDATE_TODO_FAIL:
+      return { ...state, loadingUpdate: false, error: payload };
+    case TYPES.TODO_DELETE_TODO_REQ:
+      return { ...state, loadingUpdate: true, error: null };
+    case TYPES.TODO_DELETE_TODO_SUCCESS:
+      return { ...state, loadingUpdate: false, todoList: payload };
+    case TYPES.TODO_DELETE_TODO_FAIL:
+      return { ...state, loadingUpdate: false, error: payload };
     default:
       return state;
   }

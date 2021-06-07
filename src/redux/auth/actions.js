@@ -8,7 +8,7 @@ export const authLogin = (reqBody) => async (dispatch) => {
   dispatch({ type: TYPES.AUTH_LOGIN_REQ });
   try {
     const response = await API.authLogin(reqBody);
-    if (!response?.success) {
+    if (response?.success) {
       const payload = {
         user: { email: reqBody.email },
         token: response.token,

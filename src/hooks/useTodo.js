@@ -6,6 +6,8 @@ export const useTodoNoAuth = () => {
   const dispatch = useDispatch();
   const todoState = useSelector((state) => state.todo.todoList);
 
+  console.log(todoState, "odo");
+
   useEffect(() => {
     dispatch(todoActions.todoFetchTodoList());
   }, [dispatch]);

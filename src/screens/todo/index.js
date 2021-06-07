@@ -13,9 +13,10 @@ const TodoScreen = () => {
     deleteTodoNoAuth,
   } = useTodoNoAuth();
   const [editListState, setEditListState] = useState({});
-  const [todoListState, setTodoListState] = useState(todoState);
+  const [todoListState, setTodoListState] = useState([]);
 
   useEffect(() => {
+    console.log(todoState);
     if (todoState) {
       setTodoListState(todoState);
     }
@@ -32,7 +33,7 @@ const TodoScreen = () => {
     dispatchUpdateTodoNoAuth({
       id,
       item: newValue,
-      currentData: todoListState,
+      currentData: [...todoListState],
     });
     if (!editListState[id]) {
       return;
@@ -41,11 +42,10 @@ const TodoScreen = () => {
   };
 
   const onEventDeleteTodo = async (id) => {
-    const newData = await deleteTodoNoAuth({ id, currentData: todoListState });
-    if (!newData) {
-      return;
-    }
-    setTodoListState(newData);
+    deleteTodoNoAuth({
+      id,
+      currentData: [...todoListState],
+    });
     deleteEditList(id);
   };
 
