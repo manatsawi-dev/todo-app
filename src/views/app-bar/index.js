@@ -10,8 +10,6 @@ const AppBar = () => {
   const { isCheckedAuth, authState, token, dispatchAuthLogout } = useAuth();
   const labelRight = isCheckedAuth && !authState && !token ? "Login" : "Logout";
 
-  console.log(authState, token);
-
   const onClicked = async () => {
     const isLoggedOut = isCheckedAuth && !authState && !token;
     if (isLoggedOut) {
