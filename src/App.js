@@ -7,6 +7,7 @@ import PublicRoutes from "./routes/public-routes";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { navigationRef } from "./utils/navigation-services";
 import store from "./redux/store";
+import TestRedux from "./screens/test-redux";
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router ref={navigationRef}>
           <GlobalStyle />
-          <AppBar />
-          <Switch>
+          {/* <AppBar /> */}
+          {/* <Switch>
             <Route exact component={PublicRoutes} />
-          </Switch>
+          </Switch> */}
+          <TestRedux />
         </Router>
       </ThemeProvider>
     </Provider>
